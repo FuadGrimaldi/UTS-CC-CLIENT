@@ -21,8 +21,10 @@ jobs:
       - name: Deploy to ECS
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@3.25.151.2 << 'EOF'
+            set -e
             cd /home/ec2-user/UTS-CC-CLIENT
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             sudo systemctl restart nginx
           EOF
         env:
